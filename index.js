@@ -5,19 +5,16 @@ const util = require('util');
 const inquirer = require('inquirer');
 const fs = require('fs');
 const writeFile = fs.writeFile;
-// const html = require('./html');
+const html = require('./html');
 
 // const readFileAsync = util.promisify(readFile);
 const writeFileAsync = util.promisify(writeFile);
 
 async function getGitJson() {
   try {
-    const { username } = await inquirer.prompt({
-      message: 'Enter a username',
-      name: 'username'
-    });
+    const { username } = await promptUser();
 
-    console.log(`https://api.github.com/users/${username}`);
+    // console.log(`https://api.github.com/users/${username}`);
     const response = await axios.get(
       `https://api.github.com/users/${username}`
     );
@@ -33,11 +30,14 @@ async function getGitJson() {
       numStars: response.data.public_gists,
       numFollowing: response.data.following
     };
+
+    const index = html.generateHTML(userInfo);
+
+    // console.log(index);
     // console.log(userInfo);
-    generateHTML(userInfo);
 
     // const content = JSON.stringify(response.data, null, 2);
-    // await writeFileAsync('test.html', content, 'utf8');
+    await writeFileAsync('test.html', index, 'utf8');
   } catch (err) {
     console.error(err);
   }
@@ -45,6 +45,9 @@ async function getGitJson() {
 
 getGitJson();
 
-function generateHTML(userInfo) {
-  console.log(userInfo);
+function promptUser() {
+  return inquirer.prompt({
+    message: 'Enter a username',
+    name: 'username'
+  });
 }
