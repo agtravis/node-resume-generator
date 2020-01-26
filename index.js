@@ -20,6 +20,19 @@ async function getGitJson() {
     const response = await axios.get(
       `https://api.github.com/users/${username}`
     );
+    const userInfo = {
+      imageSrc: response.data.avatar_url,
+      name: response.data.name,
+      location: response.data.location,
+      profileURL: response.data.html_url,
+      blog: response.data.blog,
+      bio: response.data.bio,
+      numRepos: response.data.public_repos,
+      numFollowers: response.data.followers,
+      numStars: response.data.public_gists,
+      numFollowing: response.data.following
+    };
+    console.log(userInfo);
     // const content = JSON.stringify(response.data, null, 2);
     // await writeFileAsync('mainresponse.json', content, 'utf8');
     // console.log(response.data);
