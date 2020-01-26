@@ -7,6 +7,75 @@ function generateHTML(userInfo, cssColorScheme) {
       <meta http-equiv="X-UA-Compatible" content="ie=edge" />
       <title>${userInfo.name}'s Resume</title>
       <link rel="stylesheet" type="text/css" href="styles.css">
+      <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        color: ${cssColorScheme.text};
+        text-align: center;
+      }
+      #first-div {
+        position: relative;
+        height: 500px;
+        width: 100%;
+        background-color: ${cssColorScheme.mediumBackground};
+        display: flex;
+        justify-content: center;
+      }
+      #second-div {
+        position: absolute;
+        top: 150px;
+        height: 550px;
+        width: 90%;
+        background-color: ${cssColorScheme.darkBackground};
+        border-radius: 20px;
+      }
+      #third-div {
+        height: 365px;
+        width: 100%;
+        background-color: #e9edee;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding-top: 200px;
+        padding-bottom: 100px;
+      }
+      #fourth-div {
+        height: 365px;
+        width: 100%;
+        background-color: ${cssColorScheme.mediumBackground};
+      }
+      #profile-pic {
+        position: relative;
+        top: 75px;
+        width: 90%;
+        padding: 0 145px 50px;
+      }
+      #profile-pic img {
+        width: 350px;
+        height: 350px;
+        border: solid 10px ${cssColorScheme.photoBorder};
+        border-radius: 500px;
+      }
+      #links a {
+        margin: 0 25px;
+        text-decoration: none;
+        color: white;
+      }
+      .card {
+        background-color: ${cssColorScheme.darkBackground};
+        height: 80px;
+        width: 375px;
+        margin: 50px;
+        border-radius: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+      }
+      </style>
     </head>
     <body>
       <div id="first-div">
@@ -141,73 +210,3 @@ module.exports = {
   generateHTML: generateHTML,
   generateCSS: generateCSS
 };
-
-/*<style>
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: Georgia, 'Times New Roman', Times, serif;
-        color: ${cssColorScheme.text};
-        text-align: center;
-      }
-      #first-div {
-        position: relative;
-        height: 500px;
-        width: 100%;
-        background-color: ${cssColorScheme.mediumBackground};
-        display: flex;
-        justify-content: center;
-      }
-      #second-div {
-        position: absolute;
-        top: 150px;
-        height: 550px;
-        width: 90%;
-        background-color: ${cssColorScheme.darkBackground};
-        border-radius: 20px;
-      }
-      #third-div {
-        height: 365px;
-        width: 100%;
-        background-color: #e9edee;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        padding-top: 200px;
-        padding-bottom: 100px;
-      }
-      #fourth-div {
-        height: 365px;
-        width: 100%;
-        background-color: ${cssColorScheme.mediumBackground};
-      }
-      #profile-pic {
-        position: relative;
-        top: 75px;
-        width: 90%;
-        padding: 0 145px 50px;
-      }
-      #profile-pic img {
-        width: 350px;
-        height: 350px;
-        border: solid 10px ${cssColorScheme.photoBorder};
-        border-radius: 500px;
-      }
-      #links a {
-        margin: 0 25px;
-        text-decoration: none;
-        color: white;
-      }
-      .card {
-        background-color: ${cssColorScheme.darkBackground};
-        height: 80px;
-        width: 375px;
-        margin: 50px;
-        border-radius: 25px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 10px;
-      }
-    </style>*/
