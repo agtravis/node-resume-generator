@@ -1,4 +1,5 @@
 'use strict';
+const access_token = 'cH043aLStmyJD40QiAPYAuy7jmih9e8jLL4yPgIKrHWcAwPe';
 
 const axios = require('axios');
 const util = require('util');
@@ -6,6 +7,13 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const writeFile = fs.writeFile;
 const html = require('./html');
+const pdfcrowd = require('pdfcrowd');
+
+// create the API client instance
+const client = new pdfcrowd.HtmlToPdfClient(
+  'agtravis',
+  'd9fb3ab8c1c69de1aebd894830f1f176'
+);
 
 // const readFileAsync = util.promisify(readFile);
 const writeFileAsync = util.promisify(writeFile);
@@ -72,7 +80,7 @@ async function getGitJson() {
     // console.log(cssColorScheme);
 
     const styles = html.generateCSS(cssColorScheme);
-    const index = html.generateHTML(userInfo);
+    const index = html.generateHTML(userInfo, cssColorScheme);
 
     // console.log(styles);
 
@@ -81,7 +89,12 @@ async function getGitJson() {
 
     // const content = JSON.stringify(response.data, null, 2);
     await writeFileAsync(`styles.css`, styles, `utf8`);
-    await writeFileAsync(`test.html`, index, 'utf8');
+    await writeFileAsync(`test.html`, index, 'utf8').then(function(err) {
+      if (err) {
+        return console.error(err);
+      }
+      toPDF(`test.html`, userInfo);
+    });
   } catch (err) {
     console.error(err);
   }
@@ -102,5 +115,15 @@ function promptColor() {
     name: 'color',
     message: 'What color schema would you like?',
     choices: ['default', 'green', 'red', 'black']
+  });
+}
+
+function toPDF(file, userInfo) {
+  client.convertFileToFile(file, `${userInfo.name}.pdf`, function(
+    err,
+    fileName
+  ) {
+    if (err) return console.error('Pdfcrowd Error: ' + err);
+    console.log('Success: the file was created ' + fileName);
   });
 }
