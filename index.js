@@ -5,6 +5,7 @@ const util = require('util');
 const inquirer = require('inquirer');
 const fs = require('fs');
 const writeFile = fs.writeFile;
+// const html = require('./html');
 
 // const readFileAsync = util.promisify(readFile);
 const writeFileAsync = util.promisify(writeFile);
@@ -32,13 +33,18 @@ async function getGitJson() {
       numStars: response.data.public_gists,
       numFollowing: response.data.following
     };
-    console.log(userInfo);
+    // console.log(userInfo);
+    generateHTML(userInfo);
+
     // const content = JSON.stringify(response.data, null, 2);
-    // await writeFileAsync('mainresponse.json', content, 'utf8');
-    // console.log(response.data);
+    // await writeFileAsync('test.html', content, 'utf8');
   } catch (err) {
     console.error(err);
   }
 }
 
 getGitJson();
+
+function generateHTML(userInfo) {
+  console.log(userInfo);
+}
