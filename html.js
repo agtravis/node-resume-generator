@@ -26,7 +26,7 @@ function generateHTML(userInfo, cssColorScheme) {
       #second-div {
         position: absolute;
         top: 150px;
-        height: 550px;
+        height: 575px;
         width: 90%;
         background-color: ${cssColorScheme.darkBackground};
         border-radius: 20px;
@@ -66,7 +66,7 @@ function generateHTML(userInfo, cssColorScheme) {
       .card {
         background-color: ${cssColorScheme.darkBackground};
         height: 80px;
-        width: 375px;
+        width: 150px;
         margin: 50px;
         border-radius: 25px;
         display: flex;

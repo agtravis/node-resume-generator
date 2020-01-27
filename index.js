@@ -8,6 +8,7 @@ const fs = require('fs');
 const writeFile = fs.writeFile;
 const html = require('./html');
 const pdfcrowd = require('pdfcrowd');
+const open = require('open');
 
 // create the API client instance
 const client = new pdfcrowd.HtmlToPdfClient(
@@ -125,5 +126,7 @@ function toPDF(file, userInfo) {
   ) {
     if (err) return console.error('Pdfcrowd Error: ' + err);
     console.log('Success: the file was created ' + fileName);
+
+    open(`${userInfo.name}.pdf`, { wait: true });
   });
 }

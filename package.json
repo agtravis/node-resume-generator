@@ -20,6 +20,7 @@
     "axios": "^0.19.2",
     "fs": "0.0.1-security",
     "inquirer": "^7.0.4",
+    "open": "^7.0.0",
     "pdfcrowd": "^4.11.0",
     "request": "^2.88.0"
   }
