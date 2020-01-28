@@ -1,6 +1,5 @@
 'use strict';
-const access_token = 'cH043aLStmyJD40QiAPYAuy7jmih9e8jLL4yPgIKrHWcAwPe';
-
+// const access_token = 'cH043aLStmyJD40QiAPYAuy7jmih9e8jLL4yPgIKrHWcAwPe'; // for a html-pdf writer I am not using currently (Restpack)
 const axios = require('axios');
 const util = require('util');
 const inquirer = require('inquirer');
@@ -9,25 +8,25 @@ const writeFile = fs.writeFile;
 const html = require('./html');
 const pdfcrowd = require('pdfcrowd');
 const open = require('open');
-
-// create the API client instance
 const client = new pdfcrowd.HtmlToPdfClient(
   'agtravis',
   'd9fb3ab8c1c69de1aebd894830f1f176'
 );
-
 // const readFileAsync = util.promisify(readFile);
 const writeFileAsync = util.promisify(writeFile);
+
+getGitJson();
+
+const total = sum(1, 2);
+
+function sum(a, b) {
+  return a + b;
+}
 
 async function getGitJson() {
   try {
     const { username } = await promptUser();
-
-    const colorChoice = await promptColor();
-
-    // console.log(colorChoice.color); // here!
-
-    // console.log(`https://api.github.com/users/${username}`);
+    const { color } = await promptColor();
     const response = await axios.get(
       `https://api.github.com/users/${username}`
     );
@@ -44,7 +43,7 @@ async function getGitJson() {
       numFollowing: response.data.following
     };
     let cssColorScheme;
-    switch (colorChoice.color) {
+    switch (color) {
       case 'green':
         cssColorScheme = {
           text: '#ffffff',
@@ -77,34 +76,23 @@ async function getGitJson() {
           photoBorder: '#73448c'
         };
     }
-
-    // console.log(cssColorScheme);
-
     const styles = html.generateCSS(cssColorScheme);
     const index = html.generateHTML(userInfo, cssColorScheme);
-
-    // console.log(styles);
-
-    // console.log(index);
-    // console.log(userInfo);
-
-    // const content = JSON.stringify(response.data, null, 2);
     await writeFileAsync(`styles.css`, styles, `utf8`);
     await writeFileAsync(`test.html`, index, 'utf8').then(function(err) {
       if (err) {
         return console.error(err);
       }
-      toPDF(`test.html`, userInfo);
+      // toPDF(`test.html`, userInfo); // comment out to not use credits for testing
     });
   } catch (err) {
     console.error(err);
   }
 }
 
-getGitJson();
-
 function promptUser() {
   return inquirer.prompt({
+    type: 'input',
     message: 'Enter a username',
     name: 'username'
   });
@@ -113,9 +101,9 @@ function promptUser() {
 function promptColor() {
   return inquirer.prompt({
     type: 'list',
-    name: 'color',
     message: 'What color schema would you like?',
-    choices: ['default', 'green', 'red', 'black']
+    choices: ['default', 'green', 'red', 'black'],
+    name: 'color'
   });
 }
 
@@ -126,7 +114,11 @@ function toPDF(file, userInfo) {
   ) {
     if (err) return console.error('Pdfcrowd Error: ' + err);
     console.log('Success: the file was created ' + fileName);
-
     open(`${userInfo.name}.pdf`, { wait: true });
   });
 }
+
+module.exports = {
+  total: total,
+  promptColor: promptColor
+};
