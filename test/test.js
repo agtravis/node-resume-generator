@@ -1,25 +1,37 @@
-var assert = require('assert');
-var index = require('../index.js');
-describe('Array', function() {
-  describe('#indexOf()', function() {
-    it('should return -1 when the value is not present', function() {
-      assert.equal([1, 2, 3].indexOf(4), -1);
-    });
-  });
-});
+const assert = require('assert');
+const index = require('../index.js');
+const html = require('../html.js');
 
-describe('string', function() {
-  describe('bruce', function() {
-    it('It should say Bruce', function() {
-      assert.equal('bruce', 'bruce');
-    });
+describe('bruce', function() {
+  it('It should say Bruce', function() {
+    assert.equal(index.catName, 'Bruce');
   });
 });
 
 describe('sum function', function() {
-  describe('sum function', function() {
+  describe('sum function variable', function() {
     it('It should = 3', function() {
       assert.equal(index.total, '3');
+    });
+  });
+
+  describe('sum function itself', function() {
+    it('It should = 5', function() {
+      assert.equal(index.sum(3, 2), '5');
+    });
+  });
+});
+
+describe('exports', function() {
+  describe('css color scheme', function() {
+    it('be the same', function() {
+      assert.equal(index.cssColorScheme, html.cssColorScheme);
+    });
+  });
+
+  describe('function call', function() {
+    it('be the same', function() {
+      assert.equal(index.promptColor(), '<pending>');
     });
   });
 });

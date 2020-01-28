@@ -1,4 +1,4 @@
-function generateHTML(userInfo, cssColorScheme) {
+function generateHTML(userInfo, cssColorScheme, userName, repos) {
   return `<!DOCTYPE html>
   <html lang="en">
     <head>
@@ -42,9 +42,20 @@ function generateHTML(userInfo, cssColorScheme) {
         padding-bottom: 100px;
       }
       #fourth-div {
-        height: 365px;
         width: 100%;
         background-color: ${cssColorScheme.mediumBackground};
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .repo-title {
+        margin: 25px auto;
+        text-decoration: none;
+        color: ${cssColorScheme.text};
+        padding: 50px;
+        background-color: ${cssColorScheme.darkBackground};
+        width: 200px;
+        border-radius: 25px;
       }
       #profile-pic {
         position: relative;
@@ -97,7 +108,9 @@ function generateHTML(userInfo, cssColorScheme) {
         </div>
       </div>
       <div id="third-div"></div>
-      <div id="fourth-div"></div>
+      <div id="fourth-div">
+        <h3>${userInfo.name}'s Repos:</h3>
+      </div>
   
       <script>
         const cardContents = [
@@ -129,6 +142,16 @@ function generateHTML(userInfo, cssColorScheme) {
           p.textContent = card.value;
           cardDiv.appendChild(p);
           thirdDiv.appendChild(cardDiv);
+        }
+        const fourthDiv = document.getElementById('fourth-div');
+        const repos = ${repos};
+        for (let i = 0; i < repos.length; ++i) {
+          const repoA = document.createElement('a');
+          repoA.setAttribute('class', 'repo-title');
+          repoA.setAttribute('target', '_blank');
+          repoA.setAttribute('href', 'https://github.com/${userName}/' + repos[i]);
+          repoA.textContent = repos[i];
+          fourthDiv.appendChild(repoA);
         }
       </script>
     </body>
@@ -208,5 +231,6 @@ function generateCSS(cssColorScheme) {
 
 module.exports = {
   generateHTML: generateHTML,
-  generateCSS: generateCSS
+  generateCSS: generateCSS,
+  cssColorScheme: this.cssColorScheme
 };
