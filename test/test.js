@@ -17,10 +17,11 @@ describe('Just testing', function() {
 describe('exports', function() {
   describe('css color scheme', function() {
     it('Should be the same', function() {
-      const actual = index.getColor('green');
-      assert.equal(actual.text, '#ffffff');
-
-      // assert.equal(index.cssColorScheme, html.cssColorScheme);
+      assert.equal(index.cssColorScheme, html.cssColorScheme);
+    });
+    it('should be the same', function() {
+      const actual = html.getColorScheme('green');
+      assert.equal(actual.mediumBackground, '#388645');
     });
   });
 

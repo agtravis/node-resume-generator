@@ -263,7 +263,7 @@ function getColorScheme(color) {
 }
 
 module.exports = {
-  getColorScheme,
+  getColorScheme: getColorScheme,
   generateHTML: generateHTML,
   generateCSS: generateCSS,
   cssColorScheme: this.cssColorScheme
