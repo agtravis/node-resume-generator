@@ -1,8 +1,7 @@
 'use strict';
-// const access_token = 'cH043aLStmyJD40QiAPYAuy7jmih9e8jLL4yPgIKrHWcAwPe'; // for a html-pdf writer I am not using currently (Restpack)
+// const access_token = 'cH043aLStmyJD40QiAPYAuy7jmih9e8jLL4yPgIKrHWcAwPe'; // for an html-pdf writer I am not using currently (Restpack)
 const axios = require('axios');
 const util = require('util');
-const inquirer = require('inquirer');
 const fs = require('fs');
 const writeFile = fs.writeFile;
 const html = require('./html');
@@ -12,28 +11,14 @@ const client = new pdfcrowd.HtmlToPdfClient(
   'agtravis',
   'd9fb3ab8c1c69de1aebd894830f1f176'
 );
-// const readFileAsync = util.promisify(readFile);
 const writeFileAsync = util.promisify(writeFile);
 
 getGitJson();
 
-// for testing
-const catName = 'Bruce';
-const total = sum(1, 2);
-function sum(a, b) {
-  return a + b;
-}
-// function getColor(color) {
-//   return {
-//     text: '#ffffff'
-//   };
-// }
-//
-
 async function getGitJson() {
   try {
-    const { username } = await promptUser();
-    const { color } = await promptColor();
+    const { username } = await html.promptUser();
+    const { color } = await html.promptColor();
     const response = await axios.get(
       `https://api.github.com/users/${username}`
     );
@@ -43,10 +28,8 @@ async function getGitJson() {
     let repos = [];
     for (let i = 0; i < response2.data.length; ++i) {
       repos.push(response2.data[i].name);
-      // repos['repo' + i] = response2.data[i].name;
     }
     repos = JSON.stringify(repos);
-    // console.log(repos);
     const response3 = await axios.get(
       `https://api.github.com/users/${username}/starred`
     );
@@ -70,28 +53,11 @@ async function getGitJson() {
     const styles = html.generateCSS(cssColorScheme);
     const index = html.generateHTML(userInfo, cssColorScheme, username, repos);
     await writeFileAsync(`styles.css`, styles, `utf8`);
-    await writeFileAsync(`test.html`, index, 'utf8');
-    // toPDF(`test.html`, userInfo); // comment out to not use credits for testing
+    await writeFileAsync(`${userInfo.name}.html`, index, 'utf8');
+    toPDF(`${userInfo.name}.html`, userInfo); // comment out to not use credits for testing
   } catch (err) {
     console.error(err);
   }
-}
-
-function promptUser() {
-  return inquirer.prompt({
-    type: 'input',
-    message: 'Enter a username',
-    name: 'username'
-  });
-}
-
-function promptColor() {
-  return inquirer.prompt({
-    type: 'list',
-    message: 'What color scheme would you like?',
-    choices: ['default', 'green', 'red', 'black'],
-    name: 'color'
-  });
 }
 
 function toPDF(file, userInfo) {
@@ -105,11 +71,4 @@ function toPDF(file, userInfo) {
   });
 }
 
-module.exports = {
-  // getColor: getColor,
-  total: total,
-  promptColor: promptColor,
-  sum: sum,
-  catName: catName,
-  cssColorScheme: this.cssColorScheme
-};
+// module.exports = {};

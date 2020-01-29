@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+      <title>Alexander George Travis's Resume</title>
+      <!-- <link rel="stylesheet" type="text/css" href="styles.css"> -->
+      <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        color: #ffffff;
+        text-align: center;
+      }
+      #first-div {
+        position: relative;
+        height: 500px;
+        width: 100%;
+        background-color: #696969;
+        display: flex;
+        justify-content: center;
+      }
+      #second-div {
+        position: absolute;
+        top: 150px;
+        height: 575px;
+        width: 90%;
+        background-color: #000000;
+        border-radius: 20px;
+      }
+      #third-div {
+        height: 365px;
+        width: 100%;
+        background-color: #e9edee;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding-top: 200px;
+        padding-bottom: 100px;
+      }
+      #fourth-div {
+        width: 100%;
+        background-color: #696969;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .repo-title {
+        margin: 25px auto;
+        text-decoration: none;
+        color: #ffffff;
+        padding: 50px;
+        background-color: #000000;
+        width: 200px;
+        border-radius: 25px;
+      }
+      #profile-pic {
+        position: relative;
+        top: 75px;
+        width: 90%;
+        padding: 0 145px 50px;
+      }
+      #profile-pic img {
+        width: 350px;
+        height: 350px;
+        border: solid 10px #af0a8b;
+        border-radius: 500px;
+      }
+      #links a {
+        margin: 0 25px;
+        text-decoration: none;
+        color: white;
+      }
+      .card {
+        background-color: #000000;
+        height: 80px;
+        width: 150px;
+        margin: 50px;
+        border-radius: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+      }
+      </style>
+    </head>
+    <body>
+      <div id="first-div">
+        <div id="second-div"></div>
+        <div id="profile-pic">
+          <img src="https://avatars3.githubusercontent.com/u/52113550?v=4" />
+          <h1>Hi!</h1>
+          <h2>My name is Alexander George Travis</h2>
+          <p>UK-born, USA-dwelling full stack web-dev with a focus on JavaScript/Node/SQL. Interests include the past & future in terms of music, film, & print.  ...& cats.</p>
+          <div id="links">
+            <a
+              href="https://www.google.com/maps/place/Seattle, WA"
+              target="_blank"
+              >Seattle, WA</a
+            >
+            <a href="https://github.com/agtravis" target="_blank">GitHub</a>
+            <a href="https://agtravis.github.io/" target="_blank">Website/Blog</a>
+          </div>
+        </div>
+      </div>
+      <div id="third-div"></div>
+      <div id="fourth-div">
+        <h3>Alexander George Travis's Repos:</h3>
+      </div>
+  
+      <script>
+        const cardContents = [
+          {
+            title: 'Public Repositories',
+            value: 16
+          },
+          {
+            title: 'Followers',
+            value: 10
+          },
+          {
+            title: 'GitHub Stars',
+            value: 7
+          },
+          {
+            title: 'Following',
+            value: 11
+          }
+        ];
+        const thirdDiv = document.getElementById('third-div');
+        for (const card of cardContents) {
+          const cardDiv = document.createElement('div');
+          cardDiv.setAttribute('class', 'card');
+          const h3 = document.createElement('h3');
+          h3.textContent = card.title;
+          cardDiv.appendChild(h3);
+          const p = document.createElement('p');
+          p.textContent = card.value;
+          cardDiv.appendChild(p);
+          thirdDiv.appendChild(cardDiv);
+        }
+        const fourthDiv = document.getElementById('fourth-div');
+        const repos = ["04-html-css-layout","agtravis.github.io","alexander-george-travis-resume","bootstrap-practice","first-mini-hw","homework-week-1","homework-week-2","homework-week-3","homework-week-4","homework-week-5","homework-week-6","JS-JQ-regex","node-resume-generator","pocket-bartender","prework-about-me","vscode"];
+        for (let i = 0; i < repos.length; ++i) {
+          const repoA = document.createElement('a');
+          repoA.setAttribute('class', 'repo-title');
+          repoA.setAttribute('target', '_blank');
+          repoA.setAttribute('href', 'https://github.com/agtravis/' + repos[i]);
+          repoA.textContent = repos[i];
+          fourthDiv.appendChild(repoA);
+        }
+      </script>
+    </body>
+  </html>
+  

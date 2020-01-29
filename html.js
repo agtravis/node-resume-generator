@@ -1,3 +1,5 @@
+const inquirer = require('inquirer');
+
 function generateHTML(userInfo, cssColorScheme, userName, repos) {
   return `<!DOCTYPE html>
   <html lang="en">
@@ -262,7 +264,26 @@ function getColorScheme(color) {
   }
 }
 
+function promptUser() {
+  return inquirer.prompt({
+    type: 'input',
+    message: 'Enter a username',
+    name: 'username'
+  });
+}
+
+function promptColor() {
+  return inquirer.prompt({
+    type: 'list',
+    message: 'What color scheme would you like?',
+    choices: ['default', 'green', 'red', 'black'],
+    name: 'color'
+  });
+}
+
 module.exports = {
+  promptUser,
+  promptColor,
   getColorScheme: getColorScheme,
   generateHTML: generateHTML,
   generateCSS: generateCSS,
