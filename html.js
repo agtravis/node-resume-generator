@@ -229,7 +229,41 @@ function generateCSS(cssColorScheme) {
   }`;
 }
 
+function getColorScheme(color) {
+  switch (color) {
+    case 'green':
+      return {
+        text: '#ffffff',
+        darkBackground: '#004d0d',
+        mediumBackground: '#388645',
+        photoBorder: '#a3bb1d'
+      };
+    case 'red':
+      return {
+        text: '#ffffff',
+        darkBackground: '#b60606',
+        mediumBackground: '#ac5353',
+        photoBorder: '#da9619'
+      };
+    case 'black':
+      return {
+        text: '#ffffff',
+        darkBackground: '#000000',
+        mediumBackground: '#696969',
+        photoBorder: '#af0a8b'
+      };
+    default:
+      return {
+        text: '#ffffff',
+        darkBackground: '#26175a',
+        mediumBackground: '#5f64d3',
+        photoBorder: '#73448c'
+      };
+  }
+}
+
 module.exports = {
+  getColorScheme,
   generateHTML: generateHTML,
   generateCSS: generateCSS,
   cssColorScheme: this.cssColorScheme

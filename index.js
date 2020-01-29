@@ -23,6 +23,11 @@ const total = sum(1, 2);
 function sum(a, b) {
   return a + b;
 }
+// function getColor(color) {
+//   return {
+//     text: '#ffffff'
+//   };
+// }
 //
 
 async function getGitJson() {
@@ -61,45 +66,12 @@ async function getGitJson() {
       numStars: stargazers_total_count,
       numFollowing: response.data.following
     };
-    let cssColorScheme;
-    switch (color) {
-      case 'green':
-        cssColorScheme = {
-          text: '#ffffff',
-          darkBackground: '#004d0d',
-          mediumBackground: '#388645',
-          photoBorder: '#a3bb1d'
-        };
-        break;
-      case 'red':
-        cssColorScheme = {
-          text: '#ffffff',
-          darkBackground: '#b60606',
-          mediumBackground: '#ac5353',
-          photoBorder: '#da9619'
-        };
-        break;
-      case 'black':
-        cssColorScheme = {
-          text: '#ffffff',
-          darkBackground: '#000000',
-          mediumBackground: '#696969',
-          photoBorder: '#af0a8b'
-        };
-        break;
-      default:
-        cssColorScheme = {
-          text: '#ffffff',
-          darkBackground: '#26175a',
-          mediumBackground: '#5f64d3',
-          photoBorder: '#73448c'
-        };
-    }
+    const cssColorScheme = html.getColorScheme(color);
     const styles = html.generateCSS(cssColorScheme);
     const index = html.generateHTML(userInfo, cssColorScheme, username, repos);
     await writeFileAsync(`styles.css`, styles, `utf8`);
     await writeFileAsync(`test.html`, index, 'utf8');
-    toPDF(`test.html`, userInfo); // comment out to not use credits for testing
+    // toPDF(`test.html`, userInfo); // comment out to not use credits for testing
   } catch (err) {
     console.error(err);
   }
@@ -116,7 +88,7 @@ function promptUser() {
 function promptColor() {
   return inquirer.prompt({
     type: 'list',
-    message: 'What color schema would you like?',
+    message: 'What color scheme would you like?',
     choices: ['default', 'green', 'red', 'black'],
     name: 'color'
   });
@@ -134,6 +106,7 @@ function toPDF(file, userInfo) {
 }
 
 module.exports = {
+  // getColor: getColor,
   total: total,
   promptColor: promptColor,
   sum: sum,
