@@ -45,5 +45,3 @@ function toPDF(file, userInfo) {
     open(`${userInfo.name}.pdf`, { wait: true });
   });
 }
-
-// module.exports = {};
