@@ -29,7 +29,7 @@ async function getGitJson() {
     const index = html.generateHTML(userInfo, cssColorScheme, username, repos);
     await writeFileAsync(`styles.css`, styles, `utf8`);
     await writeFileAsync(`${userInfo.name}.html`, index, 'utf8');
-    // toPDF(`${userInfo.name}.html`, userInfo); // comment out to not use credits for testing
+    toPDF(`${userInfo.name}.html`, userInfo); // comment out to not use credits for testing
   } catch (err) {
     console.error(err);
   }
