@@ -63,4 +63,11 @@ describe('async functions', () => {
     const repoArr = JSON.parse(repoArrStr);
     assert.equal(repos.data.length, repoArr.length);
   });
+
+  it('should return the correct amount of properties (10)', async () => {
+    const response = await html.getUserJSON(username);
+    const stars = await html.getStars(username);
+    const userJSON = html.getUsableJSON(response, stars);
+    assert.equal(Object.keys(userJSON).length, 10);
+  });
 });
