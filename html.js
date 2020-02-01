@@ -1,4 +1,5 @@
 const inquirer = require('inquirer');
+const axios = require('axios');
 
 function generateHTML(userInfo, cssColorScheme, userName, repos) {
   return `<!DOCTYPE html>
@@ -281,7 +282,13 @@ function promptColor() {
   });
 }
 
+async function getUserJSON(username) {
+  const response = await axios.get(`https://api.github.com/users/${username}`);
+  return response;
+}
+
 module.exports = {
+  getUserJSON,
   promptUser,
   promptColor,
   getColorScheme: getColorScheme,

@@ -36,3 +36,12 @@ describe('css color scheme', function() {
     assert.equal(actual.darkBackground, '#26175a');
   });
 });
+
+describe('functionality', () => {
+  it('should match name', async () => {
+    const username = 'agtravis';
+    const expected = 'Alexander George Travis';
+    const actual = await html.getUserJSON(username);
+    assert.equal(actual.data.name, expected);
+  });
+});

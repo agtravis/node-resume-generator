@@ -19,9 +19,7 @@ async function getGitJson() {
   try {
     const { username } = await html.promptUser();
     const { color } = await html.promptColor();
-    const response = await axios.get(
-      `https://api.github.com/users/${username}`
-    );
+    const response = await html.getUserJSON(username);
     const response2 = await axios.get(
       `https://api.github.com/users/${username}/repos`
     );
@@ -54,7 +52,7 @@ async function getGitJson() {
     const index = html.generateHTML(userInfo, cssColorScheme, username, repos);
     await writeFileAsync(`styles.css`, styles, `utf8`);
     await writeFileAsync(`${userInfo.name}.html`, index, 'utf8');
-    toPDF(`${userInfo.name}.html`, userInfo); // comment out to not use credits for testing
+    // toPDF(`${userInfo.name}.html`, userInfo); // comment out to not use credits for testing
   } catch (err) {
     console.error(err);
   }
