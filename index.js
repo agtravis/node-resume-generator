@@ -20,9 +20,7 @@ async function getGitJson() {
     const { username } = await html.promptUser();
     const { color } = await html.promptColor();
     const response = await html.getUserJSON(username);
-    const response2 = await axios.get(
-      `https://api.github.com/users/${username}/repos`
-    );
+    const response2 = await html.getUserJSONRepos(username);
     let repos = [];
     for (let i = 0; i < response2.data.length; ++i) {
       repos.push(response2.data[i].name);

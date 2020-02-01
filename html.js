@@ -287,7 +287,16 @@ async function getUserJSON(username) {
   return response;
 }
 
+async function getUserJSONRepos(username) {
+  const response2 = await axios.get(
+    `https://api.github.com/users/${username}/repos`
+  );
+  console.log(response2.data[0]);
+  return response2;
+}
+
 module.exports = {
+  getUserJSONRepos,
   getUserJSON,
   promptUser,
   promptColor,

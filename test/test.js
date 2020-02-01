@@ -1,6 +1,7 @@
 const assert = require('assert');
 // const index = require('../index.js');
 const html = require('../html.js');
+const chai = require('chai');
 
 describe('css color scheme', function() {
   it('should be the same', function() {
@@ -37,11 +38,17 @@ describe('css color scheme', function() {
   });
 });
 
-describe('functionality', () => {
+describe('async functions', () => {
   it('should match name', async () => {
     const username = 'agtravis';
     const expected = 'Alexander George Travis';
     const actual = await html.getUserJSON(username);
     assert.equal(actual.data.name, expected);
+  });
+
+  it('should be an object', async () => {
+    const username = 'agtravis';
+    const actual = await html.getUserJSON(username);
+    chai.expect(actual.data).to.be.an('object');
   });
 });
