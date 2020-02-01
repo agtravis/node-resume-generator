@@ -291,11 +291,47 @@ async function getUserJSONRepos(username) {
   const response2 = await axios.get(
     `https://api.github.com/users/${username}/repos`
   );
-  console.log(response2.data[0]);
   return response2;
 }
 
+function fillRepoArray(response2) {
+  const repos = [];
+  for (let i = 0; i < response2.data.length; ++i) {
+    repos.push(response2.data[i].name);
+  }
+  return JSON.stringify(repos);
+}
+
+async function getStars(username) {
+  const response3 = await axios.get(
+    `https://api.github.com/users/${username}/starred`
+  );
+  let stargazers_total_count = 0;
+  for (let i = 0; i < response3.data.length; ++i) {
+    stargazers_total_count += response3.data[i].stargazers_count;
+  }
+  return stargazers_total_count;
+}
+
+function getUsableJSON(response, stargazers_total_count) {
+  return {
+    imageSrc: response.data.avatar_url,
+    name: response.data.name,
+    location: response.data.location,
+    profileURL: response.data.html_url,
+    blog: response.data.blog,
+    bio: response.data.bio,
+    numRepos: response.data.public_repos,
+    numFollowers: response.data.followers,
+    numStars: stargazers_total_count,
+    numFollowing: response.data.following
+  };
+}
+
 module.exports = {
+  getUsableJSON,
+  getStars,
+  fillRepoArray,
   getUserJSONRepos,
   getUserJSON,
   promptUser,

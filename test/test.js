@@ -46,9 +46,9 @@ describe('async functions', () => {
     assert.equal(actual.data.name, expected);
   });
 
-  it('should be an object', async () => {
+  it('should be an array', async () => {
     const username = 'agtravis';
-    const actual = await html.getUserJSON(username);
-    chai.expect(actual.data).to.be.an('object');
+    const actual = await html.getUserJSONRepos(username);
+    chai.expect(actual.data).to.be.an('array');
   });
 });
